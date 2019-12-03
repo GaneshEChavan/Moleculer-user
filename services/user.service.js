@@ -112,6 +112,7 @@ module.exports = {
             },
             handler(ctx) {
                 return new this.Promise((res, rej) => {
+                    console.log("in user.service--------------->115")
                     jwt.verify(ctx.params.token, this.settings.JWT_SECRET, (err, decoded) => {
                         if (err) {
                             rej(err);

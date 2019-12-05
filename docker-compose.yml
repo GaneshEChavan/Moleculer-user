@@ -1,46 +1,78 @@
 version: "3.2"
 
 services:
+  
+  # api:
+  #   build:
+  #     context: .
+  #   image: track-sheet
+  #   container_name: track-sheet-api
+  #   # ports:
+  #   #   - 4001:4001 
+  #   command: npm run dev
+  #   env_file: docker-compose.env
+  #   environment:
+  #     SERVICES: api
+  #     PORT: 4001
+  #   # links:
+  #   #   -nats
+  #   #   -mongo
+  #   depends_on:
+  #     - nats
+  #     - redis
+  #     # - mongo
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.backend=api"
+  #     - "traefik.port=4001"
+  #     - "traefik.frontend.entryPoints=http"
+  #     - "traefik.frontend.rule=PathPrefix:/"
+  #   networks:
+  #     - internal
 
-  api:
-    build:
-      context: .
-    image: moleculer-demo
-    container_name: moleculer-demo-api
-    env_file: docker-compose.env
-    environment:
-      SERVICES: api
-      PORT: 3000
-    depends_on:
-      - nats
-      - redis
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=api"
-      - "traefik.port=3000"
-      - "traefik.frontend.entryPoints=http"
-      - "traefik.frontend.rule=PathPrefix:/"
-    networks:
-      - internal
+  # user:
+  #   build:
+  #     context: .
+  #   image: moleculer-demo
+  #   container_name: moleculer-demo-user
 
-  greeter:
-    build:
-      context: .
-    image: moleculer-demo
-    container_name: moleculer-demo-greeter
-    env_file: docker-compose.env
-    environment:
-      SERVICES: greeter
-    labels:
-      - "traefik.enable=false"
-    depends_on:
-      - nats
-      - redis
-    networks:
-      - internal
+  #   env_file: docker-compose.env
+  #   environment:
+  #     SERVICES: technology
+  #   labels:
+  #     - "traefik.enable=false"
+  #   depends_on:
+  #     - nats
+  #     - redis
+  #     - mongo
+  #   networks:
+  #     - internal
+  
+#   greeter:
+#     build:
+#       context: .
+#     image: moleculer-demo
+#     container_name: moleculer-demo-greeter
+#     env_file: docker-compose.env
+#     environment:
+#       SERVICES: greeter
+#     labels:
+#       - "traefik.enable=false"
+#     depends_on:
+#       - nats
+#       - redis
+#     networks:
+#       - internal
 
   nats:
     image: nats
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - internal
+
+  mongo:
+    image: mongo
     labels:
       - "traefik.enable=false"
     networks:
